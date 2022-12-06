@@ -15,10 +15,10 @@ class Task:
 
 
 # task_num = 2000
-time_slots = 200000
+time_slots = 1000000
 mean_waiting = []
 service_prob_var = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
-arrival_prob_var = [0.3, 0.4, 0.5, 0.6, 0.7]
+arrival_prob_var = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 service_prob = 0.3
 arrival_prob = 0.2
 
@@ -36,7 +36,6 @@ for prob in range(len(service_prob_var)):
     service_time = 0
     departure_time = 0
     index = 0
-    print(service_prob_var[prob])
     while timeline < time_slots:
 
         arrival_prob_random = random.random()
@@ -61,19 +60,19 @@ for prob in range(len(service_prob_var)):
         sum += qty
 
     mean = sum / len(qty_list)
-    print("mean qty =", mean)
+    # print("mean qty =", mean)
     mean_waiting.append(np.mean([task.waiting_time for task in queue]))
-    print("mean waiting = ", mean_waiting)
-    print(len(queue))
+    # print("mean waiting = ", mean_waiting)
+    # print(len(queue))
 
 
 # ------------ Analytic ------------#
 waiting_time_analytic = []
-arrival_prob_analytic = 0.2
-service_prob_analytic = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+# arrival_prob_analytic = 0.2
+# service_prob_analytic = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
 
-for i in range(len(service_prob_analytic)):
-    waiting_time_analytic.append(abs((1 - service_prob_analytic[i]) / (arrival_prob_analytic - service_prob_analytic[i])))
+for i in range(len(service_prob_var)):
+    waiting_time_analytic.append(abs((1 - arrival_prob) / (service_prob_var[i] - arrival_prob)))
 
 print("waiting time analytic = ", waiting_time_analytic)
 
