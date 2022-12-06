@@ -29,6 +29,7 @@ class Simulation:
         queue_2nd = []
         qty_list = []
         qty_list_2nd = []
+        total_waiting_time = []
         sum = 0
         sum_2nd = 0
         i = 0
@@ -92,6 +93,12 @@ class Simulation:
         print("mean waiting queue 2 = ", mean_waiting)
         print("len queue 1 = ", len(queue))
         print("len queue 2 = ", len(queue_2nd))
+        for i in range(len(queue_2nd)):
+            if queue_2nd[i].departure_time > 0:
+                total_waiting_time.append(queue_2nd[i].departure_time - queue[i].arrival_time)
+        mean_total_waiting = np.mean(total_waiting_time)
+        # total_waiting_time = [[task.departure_time for task in queue_2nd] - [task.arrival_time for task in queue]]
+        print("mean total waiting = ", mean_total_waiting)
         # total_waiting = np.mean(np.mean([task.waiting_time for task in queue]) + np.mean([task.waiting_time for
         # task in queue_2nd]))
         # sum_waiting_1 = np.sum([task.waiting_time for task in queue])
@@ -116,6 +123,7 @@ class Simulation:
         data.to_csv('out.csv')
         # print("id", [task.id for task in queue_2nd])
         # # print("index", inde)
-        # print("arrival_time", [task.arrival_time for task in queue_2nd])
+        # print("departure_time", [task.departure_time for task in queue_2nd])
+        # print("arrival_time", [task.arrival_time for task in queue])
         # print("waiting_time", [task.waiting_time for task in queue_2nd])
-        # print("departure_time", [task.departure_time for task in queue])
+
